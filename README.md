@@ -104,24 +104,151 @@ no_gps_drone/
 # 📁 **Detailed Repository Structure**
 ```
 no_gps_drone/
+│
 ├── README.md
+├── LICENSE
+├── .gitignore
 ├── docker/
+│   ├── Dockerfile.dev
+│   ├── Dockerfile.sim
+│   ├── docker-compose.yml
+│   └── entrypoint.sh
+│
 ├── environment/
+│   ├── ros2.repos            # vcs import repos (ORB-SLAM3, mavlink, perception libs)
+│   ├── requirements.txt      # Python requirements
+│   └── setup_instructions.md
+│
 ├── src/
 │   ├── slam/
+│   │   ├── orb_slam3_ros/
+│   │   ├── rtabmap_ros/
+│   │   └── vio_fusion/       # VIO/IMU fusion wrapper (ekf2 alternative)
+│   │
 │   ├── perception/
+│   │   ├── apriltag_detector/
+│   │   ├── optical_flow/
+│   │   ├── obstacle_depth/
+│   │   └── landing_pad_detector/
+│   │
 │   ├── state_estimation/
+│   │   ├── ekf_fusion/
+│   │   ├── imu_preintegration/
+│   │   └── tf_manager/
+│   │
 │   ├── mapping/
+│   │   ├── octomap_server/
+│   │   ├── voxel_map/
+│   │   └── occupancy_grid_tools/
+│   │
 │   ├── planning/
+│   │   ├── global_planner/        # A*/D* Lite / RRT*
+│   │   ├── local_planner/         # MPC / DWA / APF
+│   │   ├── trajectory_optimizer/   # polynomial, bezier, or MPC smoothening
+│   │   └── path_follower/         # converts path->waypoints->commands
+│   │
 │   ├── mission_manager/
+│   │   ├── autonomous_flight_node/
+│   │   ├── return_home_manager/
+│   │   ├── keyframe_homing/
+│   │   ├── failsafe_manager/
+│   │   ├── battery_monitor/
+│   │   └── mission_api.srv
+│   │
 │   ├── px4_bridge/
+│   │   ├── microRTPS_agent/
+│   │   ├── px4_msgs/
+│   │   ├── mavros_plugins/
+│   │   └── setpoint_api/
+│   │
 │   ├── control/
+│   │   ├── attitude_controller/
+│   │   ├── velocity_controller/
+│   │   └── landing_controller/
+│   │
+│   ├── utils/
+│   │   ├── transforms/
+│   │   ├── logging_tools/
+│   │   ├── calibration/
+│   │   └── math_lib/
+│   │
 │   └── simulation/
+│       ├── gazebo_worlds/
+│       ├── px4_sitl_launcher/
+│       ├── sensor_emulators/
+│       ├── fake_vio/
+│       ├── fake_apriltag/
+│       └── challenge_worlds/
+│
 ├── launch/
+│   ├── full_system.launch.py
+│   ├── slam_only.launch.py
+│   ├── perception.launch.py
+│   ├── planning.launch.py
+│   ├── mission.launch.py
+│   ├── return_home_test.launch.py
+│   └── sim_world.launch.py
+│
 ├── config/
+│   ├── cameras/
+│   │   ├── calibration.yaml
+│   │   ├── stereo_params.yaml
+│   │   └── rectification.yaml
+│   ├── ekf/
+│   │   ├── ekf_params.yaml
+│   │   └── noise_models.yaml
+│   ├── planners/
+│   │   ├── global_planner.yaml
+│   │   ├── local_planner.yaml
+│   │   └── mpc.yaml
+│   ├── slam/
+│   │   ├── orb_slam3.yaml
+│   │   └── rtabmap.yaml
+│   ├── mission/
+│   │   └── mission_params.yaml
+│   └── px4/
+│       ├── fw_params.params
+│       ├── ekf2_no_gps.params
+│       └── vision_yaw_fusion.params
+│
 ├── data/
+│   ├── bags/
+│   │   ├── flight1/
+│   │   └── slam_debug/
+│   ├── logs/
+│   │   ├── test_runs/
+│   │   └── errors/
+│   ├── maps/
+│   │   ├── octomap/
+│   │   └── voxel/
+│   └── keyframes/
+│
 ├── tests/
+│   ├── hardware_tests/
+│   │   ├── imu_noise_test.md
+│   │   ├── camera_latency_test.md
+│   │   └── system_id/
+│   │
+│   ├── simulation_tests/
+│   │   ├── slam_relocalization_test.md
+│   │   ├── return_home_test.md
+│   │   ├── obstacle_avoidance_test.md
+│   │   └── landing_accuracy_test.md
+│   │
+│   └── unit_tests/
+│       ├── test_slam_utils.cpp
+│       ├── test_planner.py
+│       └── test_mission_node.cpp
+│
 └── docs/
+    ├── architecture.md
+    ├── sensors_and_calibration.md
+    ├── mission_fsm.md
+    ├── return_home_algorithm.md
+    ├── failsafe_modes.md
+    ├── simulation_setup.md
+    └── evaluation_metrics.md
+
 ```
 
 Full explanation is inside `docs/architecture.md`.
