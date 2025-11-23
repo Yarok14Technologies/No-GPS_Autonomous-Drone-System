@@ -99,6 +99,29 @@ no_gps_drone/
 ├── data/
 ├── tests/
 └── docs/
+
+```
+# 📁 **Detailed Repository Structure**
+```
+no_gps_drone/
+├── README.md
+├── docker/
+├── environment/
+├── src/
+│   ├── slam/
+│   ├── perception/
+│   ├── state_estimation/
+│   ├── mapping/
+│   ├── planning/
+│   ├── mission_manager/
+│   ├── px4_bridge/
+│   ├── control/
+│   └── simulation/
+├── launch/
+├── config/
+├── data/
+├── tests/
+└── docs/
 ```
 
 Full explanation is inside `docs/architecture.md`.
