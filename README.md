@@ -377,7 +377,8 @@ Follow the coding standards in:
 
 # 📜 **License**
 
-MIT License (unless you choose otherwise)
+ 
+**[MIT License](https://github.com/Yarok14Technologies/No-GPS_Autonomous-Drone-System/blob/main/LICENSE)**
 
 ---
 
